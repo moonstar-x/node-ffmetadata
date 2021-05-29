@@ -152,7 +152,7 @@ function spawnRead(args) {
 function getWriteArgs(src, dst, data, options) {
 	// ffmpeg options
 	var inputs = ["-i", src], // src input
-		maps = ['-map', '0:0'], // set as the first
+		maps = ['-map', '0'], // set as the first
 		args = ["-y"]; // overwrite file
 
 	// Attach additional input files if included
