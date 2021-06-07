@@ -163,8 +163,12 @@ function getWriteArgs(src, dst, data, options) {
 	});
 
 	// Copy flag in order to not transcode
-	//args = args.concat(inputs, maps, ["-codec", "copy"]);
-	args = args.concat(inputs, maps);
+	if (options["mp4Video"]) {
+		args = args.concat(inputs, ["-codec", "copy"]);
+		args.push("-map", "0:a", "-map", "0:v");
+	} else {
+		args = args.concat(inputs, maps, ["-codec", "copy"]);
+	}
 
 	if (options["id3v1"]) {
 		args.push("-write_id3v1", "1");
@@ -172,10 +176,6 @@ function getWriteArgs(src, dst, data, options) {
 
 	if (options["id3v2.3"]) {
 		args.push("-id3v2_version", "3");
-	}
-
-	if (options["mp4Video"]) {
-		args.push("-c:v", "copy", "-c:a", "aac");
 	}
 
 	// append metadata
